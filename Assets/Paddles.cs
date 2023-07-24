@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Paddles : MonoBehaviour
@@ -11,16 +9,22 @@ public class Paddles : MonoBehaviour
 
     private bool _isKeyPressed = false;
 
+    public float rotationSpeed = 30f;
+    public float activeRotation;
+    public float inactiveRotation;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = offsetCenter;
 
+        inactiveRotation = rb.rotation.eulerAngles.y;
+
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(keyCode))
+        if(Input.GetKey(keyCode))
         {
             _isKeyPressed = true;
         }
@@ -29,12 +33,17 @@ public class Paddles : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!_isKeyPressed)
-        {
-            return;
-        }
+        float targetAngle = _isKeyPressed ? activeRotation : inactiveRotation;
+        float currentAngle = rb.rotation.eulerAngles.y;
 
-        Vector3 axis = transform.up;
-        rb.AddTorque(axis * forceMultiplier, ForceMode.Acceleration);
+        //Ternary operator is the ? then :
+        //The equivalent is: if(_isKeyPressed){ targetAngle = activeRotation }, else{targetAngle = inactiveRotation}
+
+        float angleDelta = targetAngle - currentAngle;
+
+        
+
+        //rb.MoveRotation();
+
     }
 }
