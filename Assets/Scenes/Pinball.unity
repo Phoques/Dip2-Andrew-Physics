@@ -257,6 +257,37 @@ Transform:
   m_Father: {fileID: 2102619866}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 1.497, y: 0, z: 0}
+--- !u!1 &311396542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 311396543}
+  m_Layer: 0
+  m_Name: Centre Mass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &311396543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311396542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.89443, y: -0.5300748, z: -10.332114}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &319501506
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,8 +300,8 @@ GameObject:
   - component: {fileID: 319501511}
   - component: {fileID: 319501510}
   - component: {fileID: 319501509}
-  - component: {fileID: 319501513}
   - component: {fileID: 319501512}
+  - component: {fileID: 319501514}
   m_Layer: 0
   m_Name: Paddle 1 (2)
   m_TagString: Untagged
@@ -286,7 +317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319501506}
   m_LocalRotation: {x: 0, y: 0.34857202, z: 0, w: 0.937282}
-  m_LocalPosition: {x: -3.32, y: -0.99, z: -16.62}
+  m_LocalPosition: {x: -3.26, y: -0.99, z: -14.72}
   m_LocalScale: {x: 6.2979, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -370,9 +401,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 94
   m_CollisionDetection: 0
---- !u!114 &319501513
+--- !u!114 &319501514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -384,9 +415,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b76a06aef40104caa6ff1ba98ee2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyCode: 97
-  offsetCenter: {x: 0, y: 0, z: 0}
-  forceMultiplier: -30
+  flipperStrength: 30
+  maxAngle: 45
+  flipperKey: 97
+  centerOfMass: {fileID: 329663788}
+--- !u!1 &329663787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 329663788}
+  m_Layer: 0
+  m_Name: Centre Mass (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &329663788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329663787}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.32, y: -0.5300748, z: -6.58}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &339718900
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,12 +657,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &512014728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2337,7 +2400,6 @@ GameObject:
   - component: {fileID: 1964935935}
   - component: {fileID: 1964935934}
   - component: {fileID: 1964935933}
-  - component: {fileID: 1964935937}
   - component: {fileID: 1964935936}
   m_Layer: 0
   m_Name: Paddle 1 (1)
@@ -2438,23 +2500,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
-  m_CollisionDetection: 0
---- !u!114 &1964935937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1964935931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b76a06aef40104caa6ff1ba98ee2cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyCode: 100
-  offsetCenter: {x: 0, y: 0, z: 0}
-  forceMultiplier: 30
+  m_Constraints: 94
+  m_CollisionDetection: 3
 --- !u!1 &2102619865
 GameObject:
   m_ObjectHideFlags: 0

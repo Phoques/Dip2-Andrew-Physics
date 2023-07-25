@@ -2,48 +2,63 @@ using UnityEngine;
 
 public class Paddles : MonoBehaviour
 {
-    public KeyCode keyCode;//This lets you assign the key in the inspector.
-    Rigidbody rb;
-    public Vector3 offsetCenter;
-    public float forceMultiplier;
+    public float flipperStrength = 30f;
+    public float maxAngle = 45f;
+    public KeyCode flipperKey = KeyCode.A;
+    public Transform centerOfMass;
 
-    private bool _isKeyPressed = false;
+    private float _startAngle;
+    private float _endAngle;
+    private Rigidbody _rigidbody;
+    private Quaternion _initialRotation;
+    private bool _isFlipping = false;
 
-    public float rotationSpeed = 30f;
-    public float activeRotation;
-    public float inactiveRotation;
-
-    private void Start()
+    void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = offsetCenter;
-
-        inactiveRotation = rb.rotation.eulerAngles.y;
-
+        _rigidbody = GetComponent<Rigidbody>();
+        _initialRotation = _rigidbody.rotation;
+        _rigidbody.centerOfMass = centerOfMass.localPosition;
+        _rigidbody.maxAngularVelocity = Mathf.Infinity;
+        _startAngle = transform.rotation.eulerAngles.y;
+        _endAngle = _startAngle + maxAngle;
     }
 
-    private void Update()
+    void Update()
     {
-        if(Input.GetKey(keyCode))
-        {
-            _isKeyPressed = true;
-        }
-
+        _isFlipping = Input.GetKey(flipperKey);
     }
 
     private void FixedUpdate()
     {
-        float targetAngle = _isKeyPressed ? activeRotation : inactiveRotation;
-        float currentAngle = rb.rotation.eulerAngles.y;
+        float signedAngle = Mathf.DeltaAngle(transform.eulerAngles.y, _startAngle);
 
-        //Ternary operator is the ? then :
-        //The equivalent is: if(_isKeyPressed){ targetAngle = activeRotation }, else{targetAngle = inactiveRotation}
+        float t1AtStart = Mathf.InverseLerp(180, 0, signedAngle);
 
-        float angleDelta = targetAngle - currentAngle;
 
-        
+        if (_isFlipping)
+        {
+            if (signedAngle < maxAngle)
+            {
+                _rigidbody.AddTorque(transform.up * (flipperStrength * -1 * (t1AtStart)), ForceMode.VelocityChange);
+            }
+            else
+            {
+                _rigidbody.angularVelocity = Vector3.zero;
+                _rigidbody.rotation = _initialRotation * Quaternion.Euler(0, _startAngle - maxAngle, 0);
+            }
+        }
+        else
+        {
+            if (signedAngle  > 0f)
+            {
+                _rigidbody.AddTorque(transform.up * (flipperStrength  * (1- t1AtStart)), ForceMode.VelocityChange);
 
-        //rb.MoveRotation();
-
+            }
+            else
+            {
+                _rigidbody.angularVelocity = Vector3.zero;
+                _rigidbody.rotation = _initialRotation;
+            }
+        }
     }
 }
